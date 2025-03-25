@@ -10,6 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [errorMsg, setErrorMsg] = useState(""); 
 
     const onSubmit = async () => {
         try {
@@ -20,7 +21,8 @@ const Login = () => {
             dispatch(addUser(res.data.data));
             return navigate("/")
         } catch (err) {
-            console.log(err)
+            const errMsg = err.response.data;
+            setErrorMsg(errMsg);
         }
     }
 
@@ -37,7 +39,8 @@ const Login = () => {
                         <legend className="fieldset-legend">Enter your password</legend>
                         <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} className="input outline-none" placeholder="Enter Password" />
                     </fieldset>
-                    <div className="card-actions justify-end">
+                    <p className="text-red-500">{errorMsg}</p>
+                    <div className="card-actions justify-center">
                         <button onClick={onSubmit} className="btn btn-primary">Submit</button>
                     </div>
                 </div>
