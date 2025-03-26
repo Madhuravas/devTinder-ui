@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import {addUser} from "../utils/userSlice";
@@ -10,7 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [errorMsg, setErrorMsg] = useState(""); 
+    const [errorMsg, setErrorMsg] = useState("");
 
     const onSubmit = async () => {
         try {
@@ -19,12 +19,19 @@ const Login = () => {
                 password
             }, { withCredentials: true });
             dispatch(addUser(res.data.data));
-            return navigate("/")
+            localStorage.setItem("isLoggedIn", true);
+            return navigate("/feed")
         } catch (err) {
             const errMsg = err.response.data;
             setErrorMsg(errMsg);
         }
     }
+
+    useEffect(() =>{
+        if(localStorage.getItem("isLoggedIn") == 'true'){
+            return navigate('/feed')
+        }
+    })
 
     return (
         <div className="flex justify-center mt-10">

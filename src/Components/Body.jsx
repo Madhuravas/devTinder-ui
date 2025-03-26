@@ -2,14 +2,14 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import {BASE_URL} from "../utils/constants";
 import { useDispatch } from "react-redux";
 import {addUser} from "../utils/userSlice";
 
 
 const Body = () =>{
-    const navigator = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const fetchUserDetails = async () =>{
@@ -18,7 +18,8 @@ const Body = () =>{
         dispatch(addUser(userData.data.data));
        }catch(err){
           if(err.status === 401){
-            navigator("/login");
+            localStorage.setItem("isLoggedIn", false);
+            navigate("/login");
           }
        }
     }

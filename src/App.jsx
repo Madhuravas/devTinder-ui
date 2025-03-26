@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate  } from "react-router-dom";
 import Body from "./Components/Body";
 import Login from "./Components/Login";
 import appStore from "./utils/appStore";
@@ -13,9 +13,10 @@ function App() {
       <BrowserRouter basename="/">
         <Routes>
           <Route element={<Body />} >
+            <Route path="/" element={<Navigate to="/feed" replace />} />
             <Route path='/login' element={<Login />} />
             <Route path='/profile' element={<Profile/>}/>
-            <Route path="/" element={<Feed/>}/>
+            <Route path="/feed" element={<Feed/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
