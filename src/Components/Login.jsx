@@ -20,7 +20,7 @@ const Login = () => {
             }, { withCredentials: true });
             dispatch(addUser(res.data.data));
             localStorage.setItem("isLoggedIn", true);
-            return navigate("/feed")
+            navigate("/feed")
         } catch (err) {
             const errMsg = err.response.data;
             setErrorMsg(errMsg);
@@ -28,10 +28,10 @@ const Login = () => {
     }
 
     useEffect(() =>{
-        if(localStorage.getItem("isLoggedIn") == 'true'){
+        if(localStorage.getItem("isLoggedIn") === 'true'){
             return navigate('/feed')
         }
-    })
+    }, [])
 
     return (
         <div className="flex justify-center mt-10">

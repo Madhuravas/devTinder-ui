@@ -1,7 +1,7 @@
 const UserCard = ({user}) => {
     const {firstName, lastName, photoUrl, about, gender, age} = user;
     return (
-        <div className="card bg-base-300 w-75 shadow-sm">
+        <div className="card bg-base-300 w-75 shadow-sm h-[500px]">
             <figure>
                 <img
                     src={photoUrl}
@@ -9,6 +9,7 @@ const UserCard = ({user}) => {
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{firstName + " " + lastName}</h2>
+                {gender && age && <p>{gender} {age}</p>}
                 {about && <p>{about}</p>}
                 <div className="card-actions justify-end">
                     <button className="btn btn-primary">Ignore</button>

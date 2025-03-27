@@ -20,10 +20,9 @@ const Feed = () => {
             setFeedData(feedData.data.data);
             console.log(feedData.data)
         } catch (err) {
-            if (err.status === 401) {
+            if (err.status == 401) {
                 navigate('/login')
-            }
-            console.log(err)
+            };
         }
     }
 
