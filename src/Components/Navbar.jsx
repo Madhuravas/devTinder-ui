@@ -13,6 +13,7 @@ const Navbar = () => {
     try{
       await axios.post(BASE_URL + "/logout", {}, {withCredentials:true});
       navigate("/login");
+      localStorage.setItem("isLoggedIn", "false");
       dispatch(removeUser());
     }catch(err){
       console.log(err)

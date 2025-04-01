@@ -7,18 +7,14 @@ import { addFeed } from "../utils/feedSlice";
 import UserCard from "./userCard";
 
 const Feed = () => {
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [feed,setFeedData] = useState("");
-    // const feed = useSelector((state) =>{state.feed});
-
+    let feed = useSelector((state) =>state.feed);
+  
     const getFeedData = async () => {
         try {
             let feedData = await axios.get(BASE_URL + "/user/feed", { withCredentials: true });
-            dispatch(addFeed(feedData.data));
-            setFeedData(feedData.data.data);
-            console.log(feedData.data)
+            dispatch(addFeed(feedData.data.data));
         } catch (err) {
             if (err.status == 401) {
                 navigate('/login')
@@ -28,7 +24,13 @@ const Feed = () => {
 
     useEffect(() => {
         getFeedData();
-    }, [])
+    }, []);
+
+    if(!feed) return
+
+    if(feed.length <= 0){
+        return <p>No new users</p>
+    }
 
     return feed && (
         <div className="flex justify-center items-center flex-col my-10">
